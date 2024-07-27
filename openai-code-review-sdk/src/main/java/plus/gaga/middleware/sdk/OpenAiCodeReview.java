@@ -25,7 +25,7 @@ public class OpenAiCodeReview {
         System.out.println("openai 代码评审，测试执行");
 
         String token = System.getenv("GITHUB_TOKEN");
-        if (null == token || token.isEmpty()){
+        if (null == token || token.isEmpty()) {
             throw new RuntimeException("token is null");
         }
 
@@ -108,40 +108,31 @@ public class OpenAiCodeReview {
     }
 
     private static String writeLog(String token, String log) throws Exception {
-        try {
-            // Clone the repository
-            Git git = Git.cloneRepository()
-                    .setURI("https://github.com/fuzhengwei/openai-code-review-log.git")
-                    .setDirectory(new File("repo"))
-                    .setCredentialsProvider(new UsernamePasswordCredentialsProvider(token, ""))
-                    .call();
+        Git git = Git.cloneRepository()
+                .setURI("https://github.com/fuzhengwei/openai-code-review-log.git")
+                .setDirectory(new File("repo"))
+                .setCredentialsProvider(new UsernamePasswordCredentialsProvider(token, ""))
+                .call();
 
-            // Create a new folder with the current date
-            String dateFolderName = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-            File dateFolder = new File("repo/" + dateFolderName);
-            if (!dateFolder.exists()) {
-                dateFolder.mkdirs();
-            }
-
-            // Generate a random 12-character string for the file name
-            String fileName = generateRandomString(12) + ".md";
-            File newFile = new File(dateFolder, fileName);
-            try (FileWriter writer = new FileWriter(newFile)) {
-                writer.write(log);
-            }
-
-            // Add, commit, and push the changes
-            git.add().addFilepattern(dateFolderName + "/" + fileName).call();
-            git.commit().setMessage("Add new file via GitHub Actions").call();
-            git.push().setCredentialsProvider(new UsernamePasswordCredentialsProvider(token, "")).call();
-
-            System.out.println("Changes have been pushed to the repository.");
-
-            return "https://github.com/fuzhengwei/openai-code-review-log/blob/master/" + dateFolderName + "/" + fileName;
-        } catch (GitAPIException | IOException e) {
-            e.printStackTrace();
-            return "";
+        String dateFolderName = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        File dateFolder = new File("repo/" + dateFolderName);
+        if (!dateFolder.exists()) {
+            dateFolder.mkdirs();
         }
+
+        String fileName = generateRandomString(12) + ".md";
+        File newFile = new File(dateFolder, fileName);
+        try (FileWriter writer = new FileWriter(newFile)) {
+            writer.write(log);
+        }
+
+        git.add().addFilepattern(dateFolderName + "/" + fileName).call();
+        git.commit().setMessage("Add new file via GitHub Actions").call();
+        git.push().setCredentialsProvider(new UsernamePasswordCredentialsProvider(token, "")).call();
+
+        System.out.println("Changes have been pushed to the repository.");
+
+        return "https://github.com/fuzhengwei/openai-code-review-log/blob/master/" + dateFolderName + "/" + fileName;
     }
 
     private static String generateRandomString(int length) {
