@@ -47,10 +47,10 @@ public class OpenAiCodeReviewService extends AbstractOpenAiCodeReviewService {
                         "必须要求：\n" +
                         "1. 以精炼的语言、严厉的语气指出存在的问题。\n" +
                         "2. 你的反馈内容必须使用严谨的markdown格式\n" +
-                        " 3. 不要携带变量内容解释信息。\n" +
+                        "3. 不要携带变量内容解释信息。\n" +
                         "4. 有清晰的标题结构\n" +
                         "返回格式严格如下：\n" +
-                        "### 本地私有化部署模型 ： AI CodeReview Analysis.\n" +
+                        "# 小傅哥项目： OpenAi 代码评审.\n" +
                         "### \uD83D\uDE00代码评分：{变量1}\n" +
                         "#### \uD83D\uDE00代码逻辑与目的：\n" +
                         "{变量6}\n" +
