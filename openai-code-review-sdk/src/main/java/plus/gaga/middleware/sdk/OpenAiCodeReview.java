@@ -51,6 +51,8 @@ public class OpenAiCodeReview {
                 getEnv("WEIXIN_TEMPLATE_ID")
         );
 
+
+
         IOpenAI openAI = new ChatGLM(getEnv("CHATGLM_APIHOST"), getEnv("CHATGLM_APIKEYSECRET"));
 
         OpenAiCodeReviewService openAiCodeReviewService = new OpenAiCodeReviewService(gitCommand, openAI, weiXin);
@@ -60,7 +62,7 @@ public class OpenAiCodeReview {
     }
 
     private static String getEnv(String key) {
-        String value = System.getenv("GITHUB_TOKEN");
+        String value = System.getenv(key);
         if (null == value || value.isEmpty()) {
             throw new RuntimeException("value is null");
         }
