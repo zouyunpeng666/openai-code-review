@@ -28,7 +28,7 @@ jobs:
         run: mkdir -p ./libs
 
       - name: Download openai-code-review-sdk JAR
-        run: curl -L -O ./libs/openai-code-review-sdk-1.0.jar  https://github.com/zouyunpeng666/openai-code-review/releases/download/v1.0/openai-code-review-sdk-1.0.jar
+        run: wget -O ./libs/openai-code-review-sdk-1.0.jar  https://github.com/zouyunpeng666/openai-code-review/releases/download/v1.0/openai-code-review-sdk-1.0.jar
 
       - name: Get repository name
         id: repo-name
@@ -52,6 +52,14 @@ jobs:
           echo "Branch name is ${{ env.BRANCH_NAME }}"
           echo "Commit author is ${{ env.COMMIT_AUTHOR }}"
           echo "Commit message is ${{ env.COMMIT_MESSAGE }}"      
+
+
+      - name: Check and download JAR file
+        run: |
+          if [ ! -f "./libs/openai-code-review-sdk-1.0.jar" ]; then
+            echo "JAR file not found, starting download..."
+            wget -O ./libs/openai-code-review-sdk-1.0.jar https://github.com/zouyunpeng666/openai-code-review/releases/download/v1.0/openai-code-review-sdk-1.0.jar
+          fi
       - name: Check JAR file
         run: ls -l ./libs/
       - name: Run Code Review
