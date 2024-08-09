@@ -33,13 +33,14 @@ public class OpenAiCodeReview {
 
     public static void main(String[] args) throws Exception {
         GitCommand gitCommand = new GitCommand(
-                getEnv("GITHUB_REVIEW_LOG_URI"),
-                getEnv("GITHUB_TOKEN"),
+                getEnv("CODE_REVIEW_LOG_URI"),
+                getEnv("CODE_TOKEN"),
                 getEnv("COMMIT_PROJECT"),
                 getEnv("COMMIT_BRANCH"),
                 getEnv("COMMIT_AUTHOR"),
                 getEnv("COMMIT_MESSAGE")
         );
+
 
         /**
          * 项目：{{repo_name.DATA}} 分支：{{branch_name.DATA}} 作者：{{commit_author.DATA}} 说明：{{commit_message.DATA}}
@@ -50,6 +51,7 @@ public class OpenAiCodeReview {
                 getEnv("WEIXIN_TOUSER"),
                 getEnv("WEIXIN_TEMPLATE_ID")
         );
+
 
 
 
