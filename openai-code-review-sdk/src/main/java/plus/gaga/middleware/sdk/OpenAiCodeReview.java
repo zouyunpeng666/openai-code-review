@@ -34,7 +34,7 @@ public class OpenAiCodeReview {
     public static void main(String[] args) throws Exception {
         GitCommand gitCommand = new GitCommand(
                 "https://github.com/zouyunpeng666/openai-code-review-log",
-                 "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",
+                 "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",
                  "openai",
                  "master",
                  "zouyp",
