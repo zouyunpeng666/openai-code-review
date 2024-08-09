@@ -8,6 +8,9 @@ import plus.gaga.middleware.sdk.infrastructure.openai.IOpenAI;
 import plus.gaga.middleware.sdk.infrastructure.openai.impl.ChatGLM;
 import plus.gaga.middleware.sdk.infrastructure.weixin.WeiXin;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class OpenAiCodeReview {
 
     private static final Logger logger = LoggerFactory.getLogger(OpenAiCodeReview.class);
@@ -33,14 +36,23 @@ public class OpenAiCodeReview {
 
     public static void main(String[] args) throws Exception {
 
-        System.out.println("测试");
+                // 获取当前日期和时间
+        LocalDateTime now = LocalDateTime.now();
+
+        // 定义时间格式
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+        // 格式化日期时间为时、分、秒
+        String formattedTime = now.format(formatter);
+
+
         GitCommand gitCommand = new GitCommand(
                 "https://github.com/zouyunpeng666/openai-code-review-log",
                  "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",
                  "openai",
                  "master",
                  "zouyp",
-                 "COMMIT_MESSAGE"
+                 formattedTime
         );
 
 
