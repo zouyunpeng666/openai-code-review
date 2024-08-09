@@ -10,7 +10,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.net.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +23,7 @@ public class ApiTest {
         String apiKeySecret = "c78fbacd3e10118ad5649d7a54a3a163.UunYDBxpzeClvSKZ";
         String token = BearerTokenUtils.getToken(apiKeySecret);
         System.out.println(token);
-        System.out.println(1);
+
     }
 
     @Test
@@ -82,8 +83,8 @@ public class ApiTest {
         System.out.println(accessToken);
 
         Message message = new Message();
-        message.put("project","big-market");
-        message.put("review","feat: 新加功能");
+        message.put("project", "big-market");
+        message.put("review", "feat: 新加功能");
 
         String url = String.format("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s", accessToken);
         sendPostRequest(url, JSON.toJSONString(message));
@@ -158,5 +159,7 @@ public class ApiTest {
             this.data = data;
         }
     }
+
+
 
 }
