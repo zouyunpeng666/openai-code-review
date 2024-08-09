@@ -34,7 +34,7 @@ public class OpenAiCodeReview {
     public static void main(String[] args) throws Exception {
         GitCommand gitCommand = new GitCommand(
                 "https://github.com/zouyunpeng666/openai-code-review-log",
-                getEnv("CODE_TOKEN"),
+                getEnv("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"),
                 getEnv("COMMIT_PROJECT"),
                 getEnv("COMMIT_BRANCH"),
                 getEnv("COMMIT_AUTHOR"),
@@ -46,16 +46,16 @@ public class OpenAiCodeReview {
          * 项目：{{repo_name.DATA}} 分支：{{branch_name.DATA}} 作者：{{commit_author.DATA}} 说明：{{commit_message.DATA}}
          */
         WeiXin weiXin = new WeiXin(
-                getEnv("WEIXIN_APPID"),
-                getEnv("WEIXIN_SECRET"),
-                getEnv("WEIXIN_TOUSER"),
-                getEnv("WEIXIN_TEMPLATE_ID")
+                getEnv("wx36ce3405a4d61ad2"),
+                getEnv("97cb157b9bf62510f28b8f58a929722a"),
+                getEnv("ofFSu6FntS0cxXuZnTEj6o10-hZc"),
+                getEnv("plNJBXbJPrBe1nt9_txDve_-TuuQpB4eBzxuVMdwJUA")
         );
 
 
 
 
-        IOpenAI openAI = new ChatGLM(getEnv("CHATGLM_APIHOST"), getEnv("CHATGLM_APIKEYSECRET"));
+        IOpenAI openAI = new ChatGLM(getEnv("https://open.bigmodel.cn/api/paas/v4/chat/completions"), getEnv("3b1359bf7ba3eed763ec9556424eb2d3.1pkaFKfTTf6HCrAP"));
 
         OpenAiCodeReviewService openAiCodeReviewService = new OpenAiCodeReviewService(gitCommand, openAI, weiXin);
         openAiCodeReviewService.exec();
