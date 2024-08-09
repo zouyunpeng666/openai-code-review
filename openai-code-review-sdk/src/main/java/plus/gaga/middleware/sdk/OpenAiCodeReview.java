@@ -33,7 +33,7 @@ public class OpenAiCodeReview {
 
     public static void main(String[] args) throws Exception {
         GitCommand gitCommand = new GitCommand(
-                getEnv("CODE_REVIEW_LOG_URI"),
+                "https://github.com/zouyunpeng666/openai-code-review-log",
                 getEnv("CODE_TOKEN"),
                 getEnv("COMMIT_PROJECT"),
                 getEnv("COMMIT_BRANCH"),
@@ -66,7 +66,7 @@ public class OpenAiCodeReview {
     private static String getEnv(String key) {
         String value = System.getenv(key);
         if (null == value || value.isEmpty()) {
-            throw new RuntimeException("value is null");
+            throw new RuntimeException(key+" value is null");
         }
         return value;
     }
