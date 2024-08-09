@@ -32,6 +32,8 @@ public class OpenAiCodeReview {
     private String github_author;
 
     public static void main(String[] args) throws Exception {
+
+        System.out.println("测试");
         GitCommand gitCommand = new GitCommand(
                 "https://github.com/zouyunpeng666/openai-code-review-log",
                  "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",
