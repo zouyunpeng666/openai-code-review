@@ -1,7 +1,6 @@
 package plus.gaga.middleware.sdk.infrastructure.git;
 
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +8,10 @@ import plus.gaga.middleware.sdk.types.utils.RandomStringUtils;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class GitCommand {
@@ -68,6 +71,20 @@ public class GitCommand {
     }
 
     public String commitAndPush(String recommend) throws Exception {
+                // 获取当前的日期和时间（默认是系统时区）
+        LocalDateTime now = LocalDateTime.now();
+
+        // 指定时区为北京时区，即UTC+8
+        ZoneId beijingZone = ZoneId.of("Asia/Shanghai");
+
+        // 将当前日期时间转换为北京时间
+        ZonedDateTime beijingTime = now.atZone(beijingZone);
+
+        // 定义时间格式
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+        // 格式化日期时间为时、分、秒
+        String formattedTime = beijingTime.format(formatter);
         Git git = Git.cloneRepository()
                 .setURI(githubReviewLogUri + ".git")
                 .setDirectory(new File("repo"))
@@ -81,7 +98,7 @@ public class GitCommand {
             dateFolder.mkdirs();
         }
 
-        String fileName = project + "-" + branch + "-" + author + System.currentTimeMillis() + "-" + RandomStringUtils.randomNumeric(4) + ".md";
+        String fileName = project + "-" + branch + "-" + author + formattedTime + "-" + RandomStringUtils.randomNumeric(4) + ".md";
         File newFile = new File(dateFolder, fileName);
         try (FileWriter writer = new FileWriter(newFile)) {
             writer.write(recommend);

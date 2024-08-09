@@ -38,7 +38,7 @@ public class OpenAiCodeReview {
 
     public static void main(String[] args) throws Exception {
 
-        // 获取当前的日期和时间（默认是系统时区）
+                 // 获取当前的日期和时间（默认是系统时区）
         LocalDateTime now = LocalDateTime.now();
 
         // 指定时区为北京时区，即UTC+8
@@ -49,19 +49,15 @@ public class OpenAiCodeReview {
 
         // 定义时间格式
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-
-        // 格式化日期时间为时、分、秒
+         // 格式化日期时间为时、分、秒
         String formattedTime = beijingTime.format(formatter);
-        int hour = beijingTime.getHour();
-        int minute = beijingTime.getMinute();
-        int second = beijingTime.getSecond();
         GitCommand gitCommand = new GitCommand(
-                "https://github.com/zouyunpeng666/openai-code-review-log",
-                "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",
+                "",
+                "",
                 "openai",
                 "master",
                 "zouyp",
-                hour+":"+minute+":"+second
+                formattedTime
         );
 
 
@@ -69,14 +65,14 @@ public class OpenAiCodeReview {
          * 项目：{{repo_name.DATA}} 分支：{{branch_name.DATA}} 作者：{{commit_author.DATA}} 说明：{{commit_message.DATA}}
          */
         WeiXin weiXin = new WeiXin(
-                "wx36ce3405a4d61ad2",
-                "97cb157b9bf62510f28b8f58a929722a",
-                "ofFSu6FntS0cxXuZnTEj6o10-hZc",
-                "plNJBXbJPrBe1nt9_txDve_-TuuQpB4eBzxuVMdwJUA"
+                " ",
+                " ",
+                " -hZc",
+                " "
         );
 
 
-        IOpenAI openAI = new ChatGLM("https://open.bigmodel.cn/api/paas/v4/chat/completions", "3b1359bf7ba3eed763ec9556424eb2d3.1pkaFKfTTf6HCrAP");
+        IOpenAI openAI = new ChatGLM(" ", " ");
 
         OpenAiCodeReviewService openAiCodeReviewService = new OpenAiCodeReviewService(gitCommand, openAI, weiXin);
         openAiCodeReviewService.exec();
